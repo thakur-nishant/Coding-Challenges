@@ -91,7 +91,7 @@ def is_four_of_a_kind(hand):
         if cards[card[0]] == 4:
             return True, card[0]
 
-    return False
+    return False,None
 
 def is_full_house(hand):
     cards = {}
@@ -101,6 +101,7 @@ def is_full_house(hand):
         else:
             cards[card[0]] = 1
 
+    result = None
     flag_3 = False
     flag_2 = False
     for key in cards:
@@ -139,7 +140,7 @@ def three_of_a_kind(hand):
         if cards[key] == 3:
             return True, key
 
-    return False
+    return False, None
 
 def is_two_pair(hand):
     cards = {}
@@ -150,15 +151,18 @@ def is_two_pair(hand):
         else:
             cards[card[0]] = 1
 
+    c = []
     for key in cards:
+        if cards[key] == 2:
+            c.append(rank_value_map[key])
         if cards[key] in count:
             count[cards[key]] += 1
         else:
             count[cards[key]] = 1
     if 2 in count and count[2] == 2:
-        return True
+        return True,max(c)
     else:
-        return False
+        return False, None
 
 def is_one_pair(hand):
     cards = {}
@@ -170,14 +174,9 @@ def is_one_pair(hand):
             cards[card[0]] = 1
 
     for key in cards:
-        if cards[key] in count:
-            count[cards[key]] += 1
-        else:
-            count[cards[key]] = 1
-    if 2 in count and count[2] == 1:
-        return True
-    else:
-        return False
+        if cards[key] == 2:
+            return True, key
+    return False, None
 
 def rank_poker_hands(poker_hands):
     power = {}
@@ -189,31 +188,31 @@ def rank_poker_hands(poker_hands):
             sorted_hand.append(str(card._cardstring))
 
         if is_straight_flush(sorted_hand):
-            power[str(sorted_hand)] = ([1, rank_value_map[sorted_hand[-1][0]]])
+            power[str(sorted_hand)] = 1000+ rank_value_map[sorted_hand[-1][0]]
 
-        elif is_four_of_a_kind(sorted_hand):
-            power[str(sorted_hand)] = ([2, rank_value_map[sorted_hand[-1][0]]])
+        elif is_four_of_a_kind(sorted_hand)[0]:
+            power[str(sorted_hand)] = 900+ rank_value_map[is_four_of_a_kind(sorted_hand)[1]]
 
-        elif is_full_house(sorted_hand):
-            power[str(sorted_hand)] = ([3, rank_value_map[sorted_hand[-1][0]]])
+        elif is_full_house(sorted_hand)[0]:
+            power[str(sorted_hand)] = 800+ rank_value_map[is_full_house(sorted_hand)[1]]
 
         elif is_flush(sorted_hand):
-            power[str(sorted_hand)] = ([4, rank_value_map[sorted_hand[-1][0]]])
+            power[str(sorted_hand)] = 700+ rank_value_map[sorted_hand[-1][0]]
 
         elif is_straight(sorted_hand):
-            power[str(sorted_hand)] = ([5, rank_value_map[sorted_hand[-1][0]]])
+            power[str(sorted_hand)] = 600+ rank_value_map[sorted_hand[-1][0]]
 
-        elif three_of_a_kind(sorted_hand):
-            power[str(sorted_hand)] = ([6, rank_value_map[sorted_hand[-1][0]]])
+        elif three_of_a_kind(sorted_hand)[0]:
+            power[str(sorted_hand)] = 500+ rank_value_map[three_of_a_kind(sorted_hand)[1]]
 
-        elif is_two_pair(sorted_hand):
-            power[str(sorted_hand)] = ([7, rank_value_map[sorted_hand[-1][0]]])
+        elif is_two_pair(sorted_hand)[0]:
+            power[str(sorted_hand)] = 400+ rank_value_map[is_two_pair(sorted_hand)[1]]
 
-        elif is_one_pair(sorted_hand):
-            power[str(sorted_hand)] = ([8, rank_value_map[sorted_hand[-1][0]]])
+        elif is_one_pair(sorted_hand)[0]:
+            power[str(sorted_hand)] = 300+ rank_value_map[is_one_pair(sorted_hand)[1]]
 
         else:
-            power[str(sorted_hand)] = ([9, rank_value_map[sorted_hand[-1][0]]])
+            power[str(sorted_hand)] = 200+ rank_value_map[sorted_hand[-1][0]]
 
     print(power)
 
