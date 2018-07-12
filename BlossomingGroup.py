@@ -14,7 +14,7 @@ def solution(A, K, M):
         row_dict = Counter(row_group)
         for key in row_dict:
             if len(key) >= K:
-                num_long_row += 1
+                num_long_row += row_dict[key]
 
         if num_long_row == M:
             exact_long_row.append(i + 1)
@@ -25,8 +25,8 @@ def solution(A, K, M):
         return -1
 
 
-A = [2, 3, 7, 8, 9, 6, 4, 1, 10, 5]
-K = 4
+A = [2, 3, 7, 8, 10, 6, 4, 5, 9, 1]
+K = 3
 M = 2
 x = solution(A, K, M)
 print(x)
