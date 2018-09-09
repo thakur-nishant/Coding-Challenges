@@ -1,5 +1,6 @@
 import re
 
+
 def identify_comments(text):
     regex = "(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|(//.*)"
     match = re.findall(regex, text)
@@ -11,6 +12,7 @@ def identify_comments(text):
                 result += val.strip() + "\n"
 
     print(result)
+
 
 if __name__ == "__main__":
     text = """/*This is a program to calculate area of a circle after getting the radius as input from the user*/  
