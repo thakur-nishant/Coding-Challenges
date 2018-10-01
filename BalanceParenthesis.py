@@ -1,6 +1,5 @@
 import sys
 
-
 def is_balanced(input):
     # Write your solution here
     stack = []
