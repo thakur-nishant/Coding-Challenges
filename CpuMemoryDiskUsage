@@ -1,0 +1,23 @@
+"""
+We have time series data for CPU, memory, and disk usage attached in a CSV-encoded text file.
+We want to analyze the data to better understand what is happening so we can inform our users.
+Write a program that will read in the full data, bucket each series into five minute intervals,
+and calculate the minimum, maximum, mean, and standard deviation of the data points in each bucket for each series.
+Your program should print out the calculated statistics for each bucket.
+"""
+
+
+def get_usage_statistics(filename):
+    timeseries = []
+    with open(filename) as f:
+        for line in f:
+            data = line[:-1].split(',')
+            timeseries.append(data)
+
+    print(timeseries)
+    pass
+
+
+if __name__ == "__main__":
+    filename = "timeseries.csv"
+    result = get_usage_statistics(filename)
