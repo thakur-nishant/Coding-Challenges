@@ -1,0 +1,2 @@
+def finalPrice(prices):
+    pass
