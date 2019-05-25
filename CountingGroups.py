@@ -34,5 +34,3 @@ def countGroups(m,t):
         res.append(log[num])
 
     return res
-
-
